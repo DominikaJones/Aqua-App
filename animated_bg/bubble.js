@@ -1,15 +1,51 @@
-// Background animation!
+// Background Animation for Aquarium Care Web App
+
+//Global variables, many are overwritten during runtime
 var x_canv = 1000;
 var y_canv = 600;
 var timer = 0;
-var timer_max = y_canv;
+var timer_max = 360;
 
-var bubble_r = Math.random()*20+20
-var bubble_x = Math.random()*x_canv;
-var bubble_h = 0;
+var num_bubbles = 10;
 
+//Define a class for my bubbles!
+class Bubble {
+  constructor() {
+    this.x = Math.random()*x_canv;
+    this.depth = Math.random()*y_canv;
+    this.radius = Math.random()*30+10;
+  }
+  //This draws the bubble!
+  draw(myCtx) {
+    myCtx.beginPath();
+    myCtx.arc(this.x, (y_canv-this.depth), this.radius, 0, 2 * Math.PI, false);
+    myCtx.fillStyle = 'rgba(200, 200, 254, 0.5)';
+    myCtx.fill();
+  }
+  // This updates the bubble position
+  update() {
+    this.x += Math.random() - 0.5;
+    this.depth += 1;
+    if (this.depth >= y_canv+40) {
+      this.refresh();
+    }
+  }
+  //This starts the bubble at the bottom of the screen
+  refresh() {
+    this.x = Math.random()*x_canv;
+    this.depth = -20;
+    this.radius = Math.random()*30+10;
+  }
+}
+
+var myBubs = [];
 
 function init() {
+
+  for (var i = 0; i < num_bubbles; i++) {
+    myBubs[i] = new Bubble()
+  }
+
   window.requestAnimationFrame(draw);
 }
 
@@ -32,16 +68,15 @@ function draw() {
   ctx.fillStyle = grd;
   ctx.fillRect(0, 0, x_canv, y_canv);
 
-  ctx.beginPath();
-  ctx.arc(bubble_x, timer_max-timer, bubble_r, 0, 2 * Math.PI, false);
-  ctx.fillStyle = 'rgba(200, 200, 254, 0.5)';
-  ctx.fill();
+
+  for (var i = 0; i < num_bubbles; i++) {
+    myBubs[i].update()
+    myBubs[i].draw(ctx)
+  }
 
   timer += 1;
   if (timer >= timer_max) {
     timer = 0;
-    bubble_r = Math.random()*30+10
-    bubble_x = Math.random()*x_canv;
   }
 
   window.requestAnimationFrame(draw);
