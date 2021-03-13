@@ -1,12 +1,13 @@
 //Define a class for my Fish!
 class Fish {
-  constructor(scale) {
+  constructor(speed, scale, color) {
     //this.velocity = Math.random()*2+2;
-    this.velocity = 2;
+    this.speed = speed;
     this.isRight = 1;
     this.x = -100;
     this.y = Math.random() * window.innerHeight * 0.5 + 100;
-    this.scale = scale;
+    this.color = color;
+    this.scale = scale; //Scale is a multiplyier
   }
   //This draws the bubble!
   draw(myCtx, animation) {
@@ -17,12 +18,12 @@ class Fish {
     var offset = 10;
     var freq = 0.5;
 
-    myCtx.fillStyle = 'rgba(254, 200, 100, 1.0)';
+    myCtx.fillStyle = this.color;
 
     myCtx.save();
 
     // This transform flips/scales and translates the fish!
-    myCtx.transform(-this.isRight,0,0,1,this.x,this.y);
+    myCtx.transform(-this.isRight*this.scale,0,0,this.scale,this.x,this.y);
 
 
 
@@ -52,10 +53,10 @@ class Fish {
   // This updates the bubble position, and
   update() {
     if (this.isRight == 1) {
-      this.x += this.velocity
+      this.x += this.speed
       if (this.x > window.innerWidth + 400) { this.refresh()}
     } else {
-      this.x -= this.velocity
+      this.x -= this.speed
       if (this.x < -400) { this.refresh()}
     }
   }
@@ -65,12 +66,12 @@ class Fish {
       this.isRight = -1;
       this.y = Math.random() * window.innerHeight * 0.5 + 100;
       this.x = window.innerWidth + 100;
-      this.scale = Math.random()*0.5 + 0.5;
+      //this.scale = Math.random()*0.5 + 0.5;
     } else {
       this.isRight = 1;
       this.x = -100;
       this.y = Math.random() * window.innerHeight * 0.5 + 100;
-      this.scale = Math.random()*0.5 + 0.5;
+      //this.scale = Math.random()*0.5 + 0.5;
     }
   }
 }

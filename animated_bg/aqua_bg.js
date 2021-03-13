@@ -13,7 +13,9 @@ function init() {
   for (var i = 0; i < num_bubbles; i++) {
     myBubs[i] = new Bubble()
   }
-  myFish = new Fish()
+  myFish1 = new Fish(2, 1.0, 'rgba(254, 200, 100, 1.0)')
+  myFish2 = new Fish(1.5, 0.5, 'rgba(200, 200, 200, 1.0)')
+  myFish3 = new Fish(1.2, 0.4, 'rgba(254, 100, 50, 1.0)')
 
   window.requestAnimationFrame(draw);
 }
@@ -40,8 +42,13 @@ function draw() {
     myBubs[i].update();
     myBubs[i].draw(ctx);
   }
-  myFish.draw(ctx, timer);
-  myFish.update();
+
+  myFish2.draw(ctx, timer);
+  myFish2.update();
+  myFish1.draw(ctx, timer);
+  myFish1.update();
+  myFish3.draw(ctx, timer);
+  myFish3.update();
 
   timer += 3;
   if (timer >= 360) {
