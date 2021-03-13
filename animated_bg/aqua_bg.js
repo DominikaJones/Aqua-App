@@ -14,7 +14,7 @@ function init() {
     myBubs[i] = new Bubble()
   }
   myFish1 = new Fish(2, 1.0, 'rgba(254, 200, 100, 1.0)')
-  myFish2 = new Fish(1.5, 0.5, 'rgba(200, 200, 200, 1.0)')
+  myFish2 = new Fish(1.5, 0.5, 'rgba(230, 230, 240, 1.0)')
   myFish3 = new Fish(1.2, 0.4, 'rgba(254, 100, 50, 1.0)')
 
   window.requestAnimationFrame(draw);
